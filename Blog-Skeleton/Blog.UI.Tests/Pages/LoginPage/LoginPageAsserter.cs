@@ -50,5 +50,12 @@ namespace Blog.UI.Tests.Pages.Login
             StringAssert.Contains(text, page.PasswordFieldRequired.Text);
         }
 
+        //Ilko
+        public static void AssertLoginPageLoaded(this LoginPage page)
+        {
+            Assert.IsTrue(page.LoginHeading.Displayed);
+            Assert.AreEqual("Log in", page.LoginHeading.Text);
+        }
+
     }
 }

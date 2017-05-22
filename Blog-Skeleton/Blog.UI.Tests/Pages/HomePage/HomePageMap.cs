@@ -13,5 +13,14 @@ namespace Blog.UI.Tests.Pages.HomePage
                 return this.Driver.FindElement(By.ClassName("navbar-brand"));
             }
         }
+
+        //lko
+        public IWebElement FirstPost
+        {
+            get
+            {
+                return this.Wait.Until(w => w.FindElement(By.XPath("//h2/a")));
+            }
+        }
     }
 }

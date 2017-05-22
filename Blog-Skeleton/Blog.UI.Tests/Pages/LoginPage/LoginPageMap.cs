@@ -130,6 +130,15 @@ namespace Blog.UI.Tests.Pages.Login
             }
         }
 
+        //Ilko
+        public IWebElement LoginHeading
+        {
+            get
+            {
+                return this.Wait.Until(w => w.FindElement(By.XPath("//h2[contains(text(),'Log in')]")));
+            }
+        }
+
 
     }
 }
