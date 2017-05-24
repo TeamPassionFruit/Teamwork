@@ -41,6 +41,14 @@ namespace Blog.UI.Tests.Pages.HomePage
             }
         }
 
+        public IWebElement logoffLink
+        {
+            get
+            {
+                return this.Driver.FindElement(By.Id("logoutForm"));
+            }
+        }
+
         public IWebElement createLink
         {
             get

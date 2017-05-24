@@ -28,7 +28,15 @@ namespace Blog.UI.Tests.Pages.HomePage
         {
             if (IsElementPresent(By.Id("loginLink")))
             {
-                this.Click(this.loginLink);
+                this.loginLink.Click();
+                var loginPage = new LoginPage(driver);
+                var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+                loginPage.FillLogInForm(loginUser);
+            }
+            else if(!IsElementPresent(By.PartialLinkText("Dimitar@abv.bg!")))
+            {
+                this.logoffLink.Click();
+                this.loginLink.Click();
                 var loginPage = new LoginPage(driver);
                 var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
                 loginPage.FillLogInForm(loginUser);
