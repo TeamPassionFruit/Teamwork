@@ -114,12 +114,25 @@
   <ItemGroup>
     <Compile Include="BrowserHost.cs" />
     <Compile Include="Models\RegistrationUser.cs" />
+    <Compile Include="Pages\ArticleDetailsPage\ArticleDetailsPage.cs" />
+    <Compile Include="Pages\ArticleDetailsPage\ArticleDetailsPageAsserter.cs" />
+    <Compile Include="Pages\ArticleDetailsPage\ArticleDetailsPageMap.cs" />
+    <Compile Include="Pages\CreateArticlePage\CreateArticlePage.cs" />
+    <Compile Include="Pages\CreateArticlePage\CreateArticlePageAsserter.cs" />
+    <Compile Include="Pages\CreateArticlePage\CreateArticlePageMap.cs" />
+    <Compile Include="Pages\DeleteArticlePage\DeleteArticlePage.cs" />
+    <Compile Include="Pages\DeleteArticlePage\DeleteArticlePageAsserter.cs" />
+    <Compile Include="Pages\DeleteArticlePage\DeleteArticlePageMap.cs" />
+    <Compile Include="Pages\EditArticlePage\EditArticlePage.cs" />
+    <Compile Include="Pages\EditArticlePage\EditArticlePageAsserter.cs" />
+    <Compile Include="Pages\EditArticlePage\EditArticlePageMap.cs" />
     <Compile Include="Pages\RegistrationPage\RegistrationPage.cs" />
     <Compile Include="Pages\RegistrationPage\RegistrationPageAsserter.cs" />
     <Compile Include="Pages\RegistrationPage\RegistrationPageMap.cs" />
+    <Compile Include="TestsLoggedUser.cs" />
     <Compile Include="UITests.cs" />
     <Compile Include="Models\AccessExcelData.cs" />
-    <Compile Include="Models\LogIn.cs" />
+    <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\DetailsPage\DetailsPage.cs" />
     <Compile Include="Pages\DetailsPage\DetailsPageAsserter.cs" />
@@ -139,7 +152,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Configurations\Environment.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DataDriven\BlogUI.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

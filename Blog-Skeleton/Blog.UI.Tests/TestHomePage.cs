@@ -16,11 +16,13 @@ namespace Blog.UI.Tests
             this.driver = BrowserHost.Instance.Application.Browser;
         }
 
-        [Test]
-        public void CheckLogoPOM()
+        [Test, Property("Priority", 3)]
+        [Author("DD")]
+        public void LoggedUserCreatePost()
         {
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
+
 
             homePage.AssertBlogLogoText();
         }

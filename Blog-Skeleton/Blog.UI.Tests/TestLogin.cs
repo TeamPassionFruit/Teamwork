@@ -53,7 +53,7 @@ namespace Blog.UI.Tests
             // IWebDriver driver = BrowserHost.Instance.Application.Browser;
 
             var loginPage = new LoginPage(this.driver);
-            LogIn user = new LogIn("Tsvetelina@abv.bg", "123456");
+            LoginUser user = new LoginUser("Tsvetelina@abv.bg", "123456");
             //var logIn = AccessExcelData.GetTestData("ValidLogin");
             loginPage.NavigatetoBlogLogIn();
             loginPage.FillLogInFormHardCode(user);
@@ -90,7 +90,7 @@ namespace Blog.UI.Tests
             // IWebDriver driver = BrowserHost.Instance.Application.Browser;
 
             var loginPage = new LoginPage(this.driver);
-            LogIn user = new LogIn("Tsvetelina@abv.bg", "123456");
+            LoginUser user = new LoginUser("Tsvetelina@abv.bg", "123456");
             //var logIn = AccessExcelData.GetTestData("ValidLogin");
             loginPage.NavigatetoBlogLogIn();
             loginPage.FillLogInFormHardCode(user);

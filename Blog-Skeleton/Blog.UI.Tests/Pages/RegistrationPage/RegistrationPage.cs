@@ -28,12 +28,5 @@ namespace Blog.UI.Tests.Pages.RegistrationPage
             Type(this.ConfirmPassword, user.ConfirmPassword);
             this.Register.Click();
         }
-
-
-        private void Type(IWebElement element, string text)
-        {
-            element.Clear();
-            element.SendKeys(text);
-        }
     }
 }
