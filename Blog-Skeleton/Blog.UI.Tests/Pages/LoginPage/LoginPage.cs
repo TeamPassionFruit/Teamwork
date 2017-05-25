@@ -21,41 +21,22 @@ namespace Blog.UI.Tests.Pages.Login
 
         public void NavigatetoBlogLogIn()
         {
-
             //this.Driver.Navigate().GoToUrl(@"http://localhost:60634/Article/List");
             this.LogInLink.Click();
         }
 
-        private void Type(IWebElement element, string text)
-        {
-            if (text == null)
-            {
-
-                element.SendKeys(string.Empty);
-            }
-            else
-            {
-                element.Clear();
-                element.SendKeys(text);
-            }
-
-        }
-
-        public void FillLogInForm(LogIn user)
+        public void FillLogInForm(LoginUser user)
         {
             Type(this.EmailAdress, user.EmailAddress);
             Type(this.Password, user.Password);
             this.LogInButton.Click();
-
         }
 
-        public void FillLogInFormHardCode(LogIn user)
+        public void FillLogInFormHardCode(LoginUser user)
         {
             Type(this.EmailAdress, user.EmailAddress);
             Type(this.Password, user.Password);
             this.LogInButton.Click();
-
         }
-
     }
 }

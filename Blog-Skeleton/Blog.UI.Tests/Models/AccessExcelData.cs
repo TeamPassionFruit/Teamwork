@@ -21,13 +21,13 @@ namespace Blog.UITests.Models
             return con;
         }
 
-        public static LogIn GetTestData(string keyName)
+        public static LoginUser GetTestData(string keyName)
         {
             using (var connection = new OleDbConnection(TestDataFileConnection()))
             {
                 connection.Open();
                 var query = string.Format("select * from [LogIn$] where key = '{0}'", keyName);
-                var value = connection.Query<LogIn>(query).FirstOrDefault();
+                var value = connection.Query<LoginUser>(query).FirstOrDefault();
                 connection.Close();
                 return value;
             }

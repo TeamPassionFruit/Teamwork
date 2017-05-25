@@ -30,6 +30,38 @@ namespace Blog.UI.Tests.Pages
                 return this.wait;
             }
         }
+
+        public void Type(IWebElement element, string text)
+        {
+            if (text == null)
+            {
+                element.SendKeys(string.Empty);
+            }
+            else
+            {
+                element.Clear();
+                element.SendKeys(text);
+            }
+        }
+
+        public void Click(IWebElement element)
+        {
+            element.Click();
+        }
+
+        public bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
     }
 }
 
