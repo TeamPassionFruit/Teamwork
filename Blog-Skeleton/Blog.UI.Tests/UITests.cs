@@ -27,7 +27,7 @@ namespace Blog.UI.Tests
         }
 
         [Test]
-        //1 негативен тест
+        //1 негативен тест - Валерия
         public void RegistrateWithOutValidEmail()
         {
             //IWebDriver driver = BrowserHost.Instance.Application.Browser;
@@ -49,7 +49,7 @@ namespace Blog.UI.Tests
         }
 
         [Test]
-        //2 негативен тест
+        //2 негативен тест - Валерия
         public void RegistrateWithOutValidConfPass()
         {
             //IWebDriver driver = BrowserHost.Instance.Application.Browser;
@@ -70,7 +70,7 @@ namespace Blog.UI.Tests
         }
 
         [Test]
-        //3 негативен тест
+        //3 негативен тест - Валерия
         public void RegistrateWithOutFullName()
         {
             //IWebDriver driver = BrowserHost.Instance.Application.Browser;
@@ -92,7 +92,7 @@ namespace Blog.UI.Tests
         }
 
         [Test]
-        //4 позитивен
+        //4 позитивен - Валерия
         public void RegistrateSuccess()
         {
             //IWebDriver driver = BrowserHost.Instance.Application.Browser;
