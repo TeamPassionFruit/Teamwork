@@ -92,7 +92,7 @@ namespace Blog.UI.Tests.Pages.HomePage
         {
             get
             {
-                return this.Driver.FindElement(By.PartialLinkText("Register"));
+                return this.Driver.FindElement(By.Id("registerLink"));
             }
         }
     }
