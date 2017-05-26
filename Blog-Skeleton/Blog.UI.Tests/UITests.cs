@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Blog.UI.Tests.Pages.HomePage;
 
 namespace Blog.UI.Tests
 {
@@ -30,19 +31,21 @@ namespace Blog.UI.Tests
         //1 негативен тест - Валерия
         public void RegistrateWithOutValidEmail()
         {
-            //IWebDriver driver = BrowserHost.Instance.Application.Browser;
+            //var regPage = new RegistrationPage(this.driver); //работи
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            homePage.LinkRegistration.Click();
             var regPage = new RegistrationPage(this.driver);
-
 
             RegistrationUser user = new RegistrationUser("а",
                                                          "Ivan Ivanov",
                                                          "1234",
                                                          "1234");
 
-            regPage.NavigateTo();
-            regPage.LinkRegistration.Click();
-            regPage.FillRegistrationForm(user);
+            /*regPage.NavigateTo();
+            regPage.LinkRegistration.Click();*/ //работи
 
+            regPage.FillRegistrationForm(user);
             regPage.AssertEmailErrorMessage("The Email field is not a valid e-mail address.");
 
 
@@ -52,7 +55,10 @@ namespace Blog.UI.Tests
         //2 негативен тест - Валерия
         public void RegistrateWithOutValidConfPass()
         {
-            //IWebDriver driver = BrowserHost.Instance.Application.Browser;
+            //var regPage = new RegistrationPage(this.driver); //работи
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            homePage.LinkRegistration.Click();
             var regPage = new RegistrationPage(this.driver);
 
 
@@ -61,10 +67,10 @@ namespace Blog.UI.Tests
                                                          "1234",
                                                          "12345");
 
-            regPage.NavigateTo();
-            regPage.LinkRegistration.Click();
-            regPage.FillRegistrationForm(user);
+            /* regPage.NavigateTo();
+             regPage.LinkRegistration.Click();*/ //работи
 
+            regPage.FillRegistrationForm(user);
             regPage.AssertConfPassErrorMessage("The password and confirmation password do not match");
 
         }
@@ -73,7 +79,11 @@ namespace Blog.UI.Tests
         //3 негативен тест - Валерия
         public void RegistrateWithOutFullName()
         {
-            //IWebDriver driver = BrowserHost.Instance.Application.Browser;
+            // var regPage = new RegistrationPage(this.driver); //работи
+
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            homePage.LinkRegistration.Click();
             var regPage = new RegistrationPage(this.driver);
 
 
@@ -82,10 +92,9 @@ namespace Blog.UI.Tests
                                                          "1234",
                                                          "1234");
 
-            regPage.NavigateTo();
-            regPage.LinkRegistration.Click();
+           /* regPage.NavigateTo();
+            regPage.LinkRegistration.Click();*/
             regPage.FillRegistrationForm(user);
-
             regPage.AssertFullNameErrorMessage("The Full Name field is required");
 
 
