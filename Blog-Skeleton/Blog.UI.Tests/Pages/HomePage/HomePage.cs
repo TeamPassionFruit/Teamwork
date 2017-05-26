@@ -26,23 +26,29 @@ namespace Blog.UI.Tests.Pages.HomePage
 
         public void CheckForLogin(IWebDriver driver)
         {
-            if (IsElementPresent(By.Id("loginLink")))
+            var loginPage = new LoginPage(driver);
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+
+            if (IsElementPresent(By.PartialLinkText("Log in")))
             {
+                this.Click(this.loginLink);
                 this.loginLink.Click();
-                var loginPage = new LoginPage(driver);
-                var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
                 loginPage.FillLogInForm(loginUser);
             }
-            else if(!IsElementPresent(By.PartialLinkText("Dimitar@abv.bg!")))
+            else if (!IsElementPresent(By.PartialLinkText("Dimitar@abv.bg!")))
             {
-                this.logoffLink.Click();
+                this.logoutLink.Click();
                 this.loginLink.Click();
-                var loginPage = new LoginPage(driver);
-                var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
                 loginPage.FillLogInForm(loginUser);
             }
-        }
 
-
+                //if (IsElementPresent(By.Id("loginLink")))
+                //{
+                //    this.Click(this.loginLink);
+                //    var loginPage = new LoginPage(driver);
+                //    var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+                //    loginPage.FillLogInForm(loginUser);
+                //}
+            }
     }
 }

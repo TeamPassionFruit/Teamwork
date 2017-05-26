@@ -13,11 +13,11 @@ namespace Blog.UI.Tests
         {
             //Instance.Run("Blog", 10639);
 
-            //var options = new ChromeOptions();
-            //options.AddUserProfilePreference("credentials_enable_service", false);
-            //options.AddUserProfilePreference("profile.password_manager_enabled", false);
-                                   
-            Instance.Run("Blog", 10639, w => w.WithRemoteWebDriver(() => new ChromeDriver()));
+            var options = new ChromeOptions();
+            options.AddUserProfilePreference("credentials_enable_service", false);
+            options.AddUserProfilePreference("profile.password_manager_enabled", false);
+
+            Instance.Run("Blog", 10639, w => w.WithRemoteWebDriver(() => new ChromeDriver(options)));
            
             RootUrl = Instance.Application.Browser.Url;
 

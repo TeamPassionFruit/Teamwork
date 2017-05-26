@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace Blog.UI.Tests
 {
@@ -22,7 +23,11 @@ namespace Blog.UI.Tests
         {
             this.driver = BrowserHost.Instance.Application.Browser;
             this.driver.Manage().Window.Maximize();
+        }
 
+        [TearDown]
+        public void CleanUp()
+        {
             if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
             {
                 string pathToProject = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));

@@ -37,15 +37,15 @@ namespace Blog.UI.Tests.Pages.HomePage
         {
             get
             {
-                return this.Driver.FindElement(By.Id("loginLink"));
+                return this.Driver.FindElement(By.PartialLinkText("Log in"));
             }
         }
 
-        public IWebElement logoffLink
+        public IWebElement logoutLink
         {
             get
             {
-                return this.Driver.FindElement(By.Id("logoutForm"));
+                return this.Driver.FindElement(By.PartialLinkText("Log off"));
             }
         }
 

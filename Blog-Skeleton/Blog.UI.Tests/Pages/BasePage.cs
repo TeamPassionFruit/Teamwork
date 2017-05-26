@@ -12,7 +12,7 @@ namespace Blog.UI.Tests.Pages
         public BasePage(IWebDriver driver)
         {
             this.driver = driver;
-            this.wait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(50));
+            this.wait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(20));
         }
 
         public IWebDriver Driver
