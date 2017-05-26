@@ -88,5 +88,12 @@ namespace Blog.UI.Tests.Pages.HomePage
                 return this.Driver.FindElement(By.PartialLinkText("Hello World"));
             }
         }
+        public IWebElement LinkRegistration
+        {
+            get
+            {
+                return this.Driver.FindElement(By.Id("registerLink"));
+            }
+        }
     }
 }
