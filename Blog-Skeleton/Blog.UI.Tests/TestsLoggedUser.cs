@@ -49,6 +49,7 @@ namespace Blog.UI.Tests
                 var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
                 screenshot.SaveAsFile(filenameJpg, ScreenshotImageFormat.Jpeg);
             }
+            
         }
 
         [Test, Property("Priority", 3)]
@@ -67,6 +68,7 @@ namespace Blog.UI.Tests
                                     
             //Assert
             homePage.AssertBlogPostTitle("DummyTitle");
+            homePage.logoutLink.Click();
         }
 
         [Test, Property("Priority", 3)]
@@ -90,6 +92,26 @@ namespace Blog.UI.Tests
 
             //Assert
             homePage.AssertBlogPostTitleNew("NewPostTitle");
+            homePage.logoutLink.Click();
+        }
+
+        [Test, Property("Priority", 3)]
+        [Author("DD")]
+        public void LoggedUserShouldNotEditOthersPost()
+        {
+            //Arange
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            homePage.CheckForLogin(this.driver);
+
+            //Act
+            homePage.Click(homePage.blogPostsTitleOther);
+            var articleDetailsPage = new ArticleDetailsPage(this.driver);
+            articleDetailsPage.Click(articleDetailsPage.editBtn);
+            var error = driver.FindElement(By.XPath("//*[@id='content']/div[1]/h3")).Displayed;
+
+            //Assert
+            Assert.AreEqual(true, error);
         }
 
         [Test, Property("Priority", 3)]
@@ -113,25 +135,9 @@ namespace Blog.UI.Tests
 
             //Assert
             homePage.AssertBlogPostTitleDelete("DummyTitleDelete");
+            homePage.logoutLink.Click();
         }
 
-        [Test, Property("Priority", 3)]
-        [Author("DD")]
-        public void LoggedUserShouldNotEditOthersPost()
-        {
-            //Arange
-            var homePage = new HomePage(this.driver);
-            homePage.NavigateTo();
-            homePage.CheckForLogin(this.driver);
 
-            //Act
-            homePage.Click(homePage.blogPostsTitleOther);
-            var articleDetailsPage = new ArticleDetailsPage(this.driver);
-            articleDetailsPage.Click(articleDetailsPage.editBtn);
-            var error = driver.FindElement(By.XPath("//*[@id='content']/div[1]/h3")).Displayed;
-
-            //Assert
-            Assert.AreEqual(true, error);
-        }
     }
 }

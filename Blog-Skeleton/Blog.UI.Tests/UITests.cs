@@ -34,6 +34,8 @@ namespace Blog.UI.Tests
             //var regPage = new RegistrationPage(this.driver); //работи
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
+            if (homePage.IsElementPresent(By.PartialLinkText("Log off")))
+                homePage.logoutLink.Click();
             homePage.LinkRegistration.Click();
             var regPage = new RegistrationPage(this.driver);
 
@@ -57,6 +59,8 @@ namespace Blog.UI.Tests
         {
             //var regPage = new RegistrationPage(this.driver); //работи
             var homePage = new HomePage(this.driver);
+            if (homePage.IsElementPresent(By.PartialLinkText("Log off")))
+                homePage.logoutLink.Click();
             homePage.NavigateTo();
             homePage.LinkRegistration.Click();
             var regPage = new RegistrationPage(this.driver);
@@ -83,6 +87,8 @@ namespace Blog.UI.Tests
 
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
+            if (homePage.IsElementPresent(By.PartialLinkText("Log off")))
+                homePage.logoutLink.Click();
             homePage.LinkRegistration.Click();
             var regPage = new RegistrationPage(this.driver);
 
@@ -114,9 +120,14 @@ namespace Blog.UI.Tests
                                                          "Ivan Ivanov",
                                                          "1234",
                                                          "1234");
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            if (homePage.IsElementPresent(By.PartialLinkText("Log off")))
+                homePage.logoutLink.Click();
+            homePage.LinkRegistration.Click();
 
-            regPage.NavigateTo();
-            regPage.LinkRegistration.Click();
+          //  regPage.NavigateTo();
+          //  regPage.LinkRegistration.Click();
             regPage.FillRegistrationForm(user);
 
             Thread.Sleep(2000);
