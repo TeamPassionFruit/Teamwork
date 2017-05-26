@@ -23,8 +23,8 @@ namespace Blog.UI.Tests
         [SetUp]
         public void Init()
         {
-
-            this.driver = new ChromeDriver();
+            this.driver = BrowserHost.Instance.Application.Browser;
+            //this.driver = new ChromeDriver();
         }
 
         [Test]
