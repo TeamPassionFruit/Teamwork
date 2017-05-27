@@ -1,4 +1,5 @@
-﻿using Blog.UI.Tests.Pages.ArticleDetailsPage;
+﻿using Blog.UI.Tests.Models;
+using Blog.UI.Tests.Pages.ArticleDetailsPage;
 using Blog.UI.Tests.Pages.CreateArticlePage;
 using Blog.UI.Tests.Pages.DeleteArticlePage;
 using Blog.UI.Tests.Pages.EditArticlePage;
@@ -9,7 +10,6 @@ using OpenQA.Selenium;
 using System;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 
 namespace Blog.UI.Tests
 {
@@ -59,7 +59,8 @@ namespace Blog.UI.Tests
             //Arange
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
-            homePage.CheckForLogin(this.driver);
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
           
             //Act
             homePage.Click(homePage.createLink);
@@ -78,7 +79,8 @@ namespace Blog.UI.Tests
             //Arange
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
-            homePage.CheckForLogin(this.driver);
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
 
             //Act
             homePage.Click(homePage.createLink);
@@ -102,7 +104,8 @@ namespace Blog.UI.Tests
             //Arange
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
-            homePage.CheckForLogin(this.driver);
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
 
             //Act
             homePage.Click(homePage.blogPostsTitleOther);
@@ -121,7 +124,8 @@ namespace Blog.UI.Tests
             //Arange
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
-            homePage.CheckForLogin(this.driver);
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
 
             //Act
             homePage.Click(homePage.createLink);
