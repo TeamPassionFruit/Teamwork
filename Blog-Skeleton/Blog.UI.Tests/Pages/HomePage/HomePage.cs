@@ -50,5 +50,13 @@ namespace Blog.UI.Tests.Pages.HomePage
                 //    loginPage.FillLogInForm(loginUser);
                 //}
             }
+
+        public void LogoffIfLoggedAtStartup(IWebDriver driver)
+        {
+            if (IsElementPresent(By.PartialLinkText("Log off")))
+            {
+                this.logoutLink.Click();
+            }
+        }
     }
 }

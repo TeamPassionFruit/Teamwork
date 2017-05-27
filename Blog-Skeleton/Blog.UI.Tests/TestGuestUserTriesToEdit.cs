@@ -31,6 +31,7 @@ namespace Blog.UI.Tests
         {
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
+            homePage.LogoffIfLoggedAtStartup(this.driver);
             homePage.FirstPost.Click();
 
             var detailsPage = new DetailsPage(this.driver);
@@ -47,6 +48,7 @@ namespace Blog.UI.Tests
         {
             var homePage = new HomePage(this.driver);
             homePage.NavigateTo();
+            homePage.LogoffIfLoggedAtStartup(this.driver);
             homePage.FirstPost.Click();
 
             var detailsPage = new DetailsPage(this.driver);
