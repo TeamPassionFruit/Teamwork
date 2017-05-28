@@ -14,6 +14,7 @@ namespace Blog.UI.Tests
         public void Init()
         {
             this.driver = BrowserHost.Instance.Application.Browser;
+            this.driver.Manage().Window.Maximize();
         }
 
         [Test, Property("Priority", 3)]

@@ -1,32 +1,59 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using Blog.UI.Tests.Models;
 using Blog.UI.Tests.Pages.RegistrationPage;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Blog.UI.Tests.Pages.HomePage;
+using System.IO;
+using System.Configuration;
+using NUnit.Framework.Interfaces;
+using Blog.UI.Tests.Pages.Login;
 
 namespace Blog.UI.Tests
 {
     [TestFixture]
     public class UITests
     {
-        public IWebDriver driver;
+        IWebDriver driver;
 
 
         [SetUp]
         public void Init()
         {
+
             this.driver = BrowserHost.Instance.Application.Browser;
-            //this.driver = new ChromeDriver();
+            this.driver.Manage().Window.Maximize();
         }
 
+        [TearDown]
+        public void CleanUp()
+        {
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
+            {
+                string pathToProject = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
+                string filename = pathToProject + ConfigurationManager.AppSettings["RelativeLogs"]
+                                    + "\\" + TestContext.CurrentContext.Test.Name;
+                string filenameTxt = filename + ".txt";
+                if (File.Exists(filenameTxt))
+                {
+                    File.Delete(filenameTxt);
+                }
+                File.WriteAllText(filenameTxt, TestContext.CurrentContext.Test.FullName + Environment.NewLine
+                                            + TestContext.CurrentContext.Result.Message + Environment.NewLine);
+
+                string filenameJpg = filename + ".jpg";
+                if (File.Exists(filenameJpg))
+                {
+                    File.Delete(filenameJpg);
+                }
+                var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
+                screenshot.SaveAsFile(filenameJpg, ScreenshotImageFormat.Jpeg);
+            }
+
+        }
+
+        #region TestCases from 1 to 4
         [Test]
         //1 негативен тест - Валерия
         public void RegistrateWithOutValidEmail()
@@ -138,6 +165,53 @@ namespace Blog.UI.Tests
 
         }
 
+        #endregion
 
+        #region TestCases from 14 to 16
+
+        [Test, Order(1)]
+        [Author("GS")]
+        // This is TestCase 14
+        public void GuestUserGoToBlog_NoUserLogedIn()
+        {
+            HomePage homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+
+            homePage.AssertGuestUserEnterTheBlog();       
+        }
+
+        [Test, Property("TestCase", 15)]
+        [Author("GS")]
+        public void GuestUserGoToBlog_UserLogedIn()
+        {
+            HomePage homePage = new HomePage(this.driver);
+            LoginPage loginPage = new LoginPage(this.driver);
+
+            homePage.NavigateTo();
+            var loginUser = new LoginUser("Gergana@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
+            homePage.NavigateTo();
+
+            loginPage.AssertValidLogIn1("Hello");
+            loginPage.AssertValidLogIn2("Log off");
+            homePage.logoutLink.Click();
+        }
+
+        [Test, Property("TestCase", 16)]
+        [Author("GS")]
+        public void LoggedUserLogOffTheBlog()
+        {
+            HomePage homePage = new HomePage(this.driver);
+            LoginPage loginPage = new LoginPage(this.driver);
+
+            homePage.NavigateTo();
+            var loginUser = new LoginUser("Gergana@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
+            homePage.logoutLink.Click();
+
+            homePage.AssertGuestUserEnterTheBlog();           
+        }
+
+        #endregion
     }
 }

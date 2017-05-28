@@ -1,0 +1,4 @@
+Blog.UI.Tests.TestLogin.ToFail
+  Expected: String containing "Password"
+  But was:  "The Email field is required."
+

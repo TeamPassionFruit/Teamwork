@@ -32,17 +32,36 @@ namespace Blog.UI.Tests
         public void CleanUp()
         {
 
+            // From TSV
+            //if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
+            //{
+            //    string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory) + ConfigurationManager.AppSettings["Logs"] + TestContext.CurrentContext.Test.Name + ".jpg";
+            //    var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
+            //    screenshot.SaveAsFile(filename, ScreenshotImageFormat.Jpeg);
+            //}
 
+
+            // From DD
             if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
             {
+                string pathToProject = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
+                string filename = pathToProject + ConfigurationManager.AppSettings["RelativeLogs"]
+                                    + "\\" + TestContext.CurrentContext.Test.Name;
+                string filenameTxt = filename + ".txt";
+                if (File.Exists(filenameTxt))
+                {
+                    File.Delete(filenameTxt);
+                }
+                File.WriteAllText(filenameTxt, TestContext.CurrentContext.Test.FullName + Environment.NewLine
+                                            + TestContext.CurrentContext.Result.Message + Environment.NewLine);
 
-
-                string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory) + ConfigurationManager.AppSettings["Logs"] + TestContext.CurrentContext.Test.Name + ".jpg";
-
+                string filenameJpg = filename + ".jpg";
+                if (File.Exists(filenameJpg))
+                {
+                    File.Delete(filenameJpg);
+                }
                 var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
-
-                screenshot.SaveAsFile(filename, ScreenshotImageFormat.Jpeg);
-
+                screenshot.SaveAsFile(filenameJpg, ScreenshotImageFormat.Jpeg);
             }
         }
 

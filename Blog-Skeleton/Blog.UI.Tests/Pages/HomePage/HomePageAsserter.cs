@@ -25,6 +25,13 @@ namespace Blog.UI.Tests.Pages.HomePage
         public static void AssertBlogPostTitleDelete(this HomePage page, string title)
         {
             Assert.AreEqual(false, page.IsElementPresent(By.PartialLinkText(title)));
-        }        
+        }
+
+        public static void AssertGuestUserEnterTheBlog(this HomePage page)
+        {
+            Assert.IsTrue(page.loginLink.Displayed);
+            Assert.IsTrue(page.LinkRegistration.Displayed);
+        }
+
     }
 }
