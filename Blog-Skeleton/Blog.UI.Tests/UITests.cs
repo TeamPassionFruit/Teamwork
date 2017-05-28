@@ -169,13 +169,13 @@ namespace Blog.UI.Tests
 
         #region TestCases from 14 to 16
 
-        [Test, Order(1)]
+        [Test, Property("TestCase", 14)]
         [Author("GS")]
-        // This is TestCase 14
         public void GuestUserGoToBlog_NoUserLogedIn()
         {
             HomePage homePage = new HomePage(this.driver);
             homePage.NavigateTo();
+            homePage.LogoffIfLoggedAtStartup(this.driver);
 
             homePage.AssertGuestUserEnterTheBlog();       
         }
