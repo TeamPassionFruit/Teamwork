@@ -32,13 +32,6 @@ namespace Blog.UI.Tests
         public void CleanUp()
         {
 
-            // From TSV
-            //if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
-            //{
-            //    string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory) + ConfigurationManager.AppSettings["Logs"] + TestContext.CurrentContext.Test.Name + ".jpg";
-            //    var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
-            //    screenshot.SaveAsFile(filename, ScreenshotImageFormat.Jpeg);
-            //}
 
 
             // From DD
@@ -76,8 +69,10 @@ namespace Blog.UI.Tests
             //var logIn = AccessExcelData.GetTestData("ValidLogin");
             loginPage.NavigatetoBlogLogIn();
             loginPage.FillLogInFormHardCode(user);
+
             loginPage.AssertValidLogIn1(("Hello"));
             loginPage.AssertValidLogIn2("Log off");
+            loginPage.LogOff.Click();
         }
 
         [Test, Property("Priority", 1)]
@@ -88,34 +83,86 @@ namespace Blog.UI.Tests
             var logIn = AccessExcelData.GetTestData("No Email Address");
             loginPage.NavigatetoBlogLogIn();
             loginPage.FillLogInForm(logIn);
+
             loginPage.AssertNoEmailAddressDetected("The Email field is required");
         }
 
+
         [Test, Property("Priority", 1)]
-        [Author("TSV")]
-        public void ToFail()
+        [Author("Anonymous")]
+        public void TryToLogInIncorrectEmailAddress()
         {
             var loginPage = new LoginPage(this.driver);
-            var logIn = AccessExcelData.GetTestData("No Email Address");
+            var logIn = AccessExcelData.GetTestData("Incorrect Email Address");
             loginPage.NavigatetoBlogLogIn();
             loginPage.FillLogInForm(logIn);
-            loginPage.AssertNoEmailAddressDetected("Password");
+
+            loginPage.AssertInvalidLogInAttemptEmailAndOrPassword("Invalid login attempt");
         }
 
         [Test, Property("Priority", 1)]
         [Author("TSV")]
-        public void ValidLogInToFail()
+        public void TryToLogInInvalidEmailAddressFormat()
         {
-            // IWebDriver driver = BrowserHost.Instance.Application.Browser;
-
             var loginPage = new LoginPage(this.driver);
-            LoginUser user = new LoginUser("Tsvetelina@abv.bg", "123456");
-            //var logIn = AccessExcelData.GetTestData("ValidLogin");
+            var logIn = AccessExcelData.GetTestData("Invalid Email Address Format");
             loginPage.NavigatetoBlogLogIn();
-            loginPage.FillLogInFormHardCode(user);
-            loginPage.AssertValidLogIn1(("Goodbye"));
-            loginPage.AssertValidLogIn2("Log off");
+            loginPage.FillLogInForm(logIn);
+
+            loginPage.AssertInvalidEmailAddressFormat("The Email field is not a valid e-mail address");
         }
+
+        [Test, Property("Priority", 1)]
+        [Author("TSV")]
+        public void TryToLogInIncorrectPassword()
+        {
+            var loginPage = new LoginPage(this.driver);
+            var logIn = AccessExcelData.GetTestData("Incorrect Password");
+            loginPage.NavigatetoBlogLogIn();
+            loginPage.FillLogInForm(logIn);
+
+            loginPage.AssertInvalidLogInAttemptEmailAndOrPassword("Invalid login attempt");
+        }
+
+        [Test, Property("Priority", 1)]
+        [Author("TSV")]
+        public void TryToLogInNoPassword()
+        {
+            var loginPage = new LoginPage(this.driver);
+            var logIn = AccessExcelData.GetTestData("No Password");
+            loginPage.NavigatetoBlogLogIn();
+            loginPage.FillLogInForm(logIn);
+
+            loginPage.AssertNoPassword("The Password field is required");
+        }
+
+        [Test, Property("Priority", 1)]
+        [Author("TSV")]
+        public void TryToLogInNoEmailAdressAndNoPassword()
+        {
+            var loginPage = new LoginPage(this.driver);
+            var logIn = AccessExcelData.GetTestData("No email address and no password");
+            loginPage.NavigatetoBlogLogIn();
+            loginPage.FillLogInForm(logIn);
+
+            loginPage.AssertNoEmailAddressDetected("The Email field is required");
+            loginPage.AssertNoPassword("The Password field is required");
+        }
+
+        [Test, Property("Priority", 1)]
+        [Author("TSV")]
+        public void TryToLogInInvalidEmailAdressFormatAndNoPassword()
+        {
+            var loginPage = new LoginPage(this.driver);
+            var logIn = AccessExcelData.GetTestData("Invalid email address format and no password");
+            loginPage.NavigatetoBlogLogIn();
+            loginPage.FillLogInForm(logIn);
+
+            loginPage.AssertInvalidEmailAddressFormat("The Email field is not a valid e-mail address");
+            loginPage.AssertNoPassword("The Password field is required");
+        }
+
+
 
     }
 }
