@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.UITests.Models
+namespace Blog.UI.Tests.Models
 {
     public class AccessExcelData
     {

@@ -1,15 +1,18 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using Blog.UI.Tests.Models;
-using Blog.UI.Tests.Pages.RegistrationPage;
-using System;
-using System.Threading;
-using Blog.UI.Tests.Pages.HomePage;
+﻿using System;
 using System.IO;
+using System.Threading;
 using System.Configuration;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using OpenQA.Selenium;
+using Blog.UI.Tests.Pages.HomePage;
 using Blog.UI.Tests.Pages.Login;
-using Blog.UITests.Models;
+using Blog.UI.Tests.Pages.ArticleDetailsPage;
+using Blog.UI.Tests.Pages.CreateArticlePage;
+using Blog.UI.Tests.Pages.DeleteArticlePage;
+using Blog.UI.Tests.Pages.EditArticlePage;
+using Blog.UI.Tests.Pages.RegistrationPage;
+using Blog.UI.Tests.Models;
 
 namespace Blog.UI.Tests
 {
@@ -328,6 +331,96 @@ namespace Blog.UI.Tests
 
             loginPage.AssertInvalidEmailAddressFormat("The Email field is not a valid e-mail address");
             loginPage.AssertNoPassword("The Password field is required");
+        }
+
+        [Test, Property("Priority", 2), Property("TestCase",08)]
+        [Author("DD")]
+        public void LoggedUserShouldCreatePost()
+        {
+            //Arange
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
+
+            //Act
+            homePage.Click(homePage.createLink);
+            var createArticlePage = new CreateArticlePage(this.driver);
+            createArticlePage.CreatePost("DummyTitle");
+
+            //Assert
+            homePage.AssertBlogPostTitle("DummyTitle");
+            homePage.logoutLink.Click();
+        }
+
+        [Test, Property("Priority", 2), Property("TestCase", 09)]
+        [Author("DD")]
+        public void LoggedUserShouldEditOwnPost()
+        {
+            //Arange
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
+
+            //Act
+            homePage.Click(homePage.createLink);
+            var createArticlePage = new CreateArticlePage(this.driver);
+            createArticlePage.CreatePost("DummyTitle");
+            homePage.Click(homePage.blogPostsTitle);
+            var articleDetailsPage = new ArticleDetailsPage(this.driver);
+            articleDetailsPage.Click(articleDetailsPage.editBtn);
+            var editArticlePage = new EditArticlePage(this.driver);
+            editArticlePage.ChangePostTitle("NewPostTitle");
+
+            //Assert
+            homePage.AssertBlogPostTitleNew("NewPostTitle");
+            homePage.logoutLink.Click();
+        }
+
+        [Test, Property("Priority", 2), Property("TestCase", 10)]
+        [Author("DD")]
+        public void LoggedUserShouldNotEditOthersPost()
+        {
+            //Arange
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
+
+            //Act
+            homePage.Click(homePage.blogPostsTitleOther);
+            var articleDetailsPage = new ArticleDetailsPage(this.driver);
+            articleDetailsPage.Click(articleDetailsPage.editBtn);
+            var error = driver.FindElement(By.XPath("//*[@id='content']/div[1]/h3")).Displayed;
+
+            //Assert
+            Assert.AreEqual(true, error);
+        }
+
+        [Test, Property("Priority", 2), Property("TestCase", 11)]
+        [Author("DD")]
+        public void LoggedUserShouldDeleteOwnPost()
+        {
+            //Arange
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            var loginUser = new LoginUser("Dimitar@abv.bg", "123456");
+            homePage.LoginUser(this.driver, loginUser);
+
+            //Act
+            homePage.Click(homePage.createLink);
+            var createArticlePage = new CreateArticlePage(this.driver);
+            createArticlePage.CreatePost("DummyTitleDelete");
+            homePage.Click(homePage.blogPostsTitleDelete);
+            var articleDetailsPage = new ArticleDetailsPage(this.driver);
+            articleDetailsPage.Click(articleDetailsPage.deleteBtn);
+            var deleteArticlePage = new DeleteArticlePage(this.driver);
+            deleteArticlePage.deleteBtn.Click();
+
+            //Assert
+            homePage.AssertBlogPostTitleDelete("DummyTitleDelete");
+            homePage.logoutLink.Click();
         }
 
     }
