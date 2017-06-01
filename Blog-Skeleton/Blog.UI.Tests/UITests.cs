@@ -13,6 +13,7 @@ using Blog.UI.Tests.Pages.DeleteArticlePage;
 using Blog.UI.Tests.Pages.EditArticlePage;
 using Blog.UI.Tests.Pages.RegistrationPage;
 using Blog.UI.Tests.Models;
+using Blog.UI.Tests.Pages.DetailsPage;
 
 namespace Blog.UI.Tests
 {
@@ -421,6 +422,40 @@ namespace Blog.UI.Tests
             //Assert
             homePage.AssertBlogPostTitleDelete("DummyTitleDelete");
             homePage.logoutLink.Click();
+        }
+
+        [Test]
+        [Property("Priority", 1), Property("TestCase", 6)]
+        [Author("IP")]
+        public void GuestUserCantEditPost()
+        {
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            homePage.LogoffIfLoggedAtStartup(this.driver);
+            homePage.FirstPost.Click();
+
+            var detailsPage = new DetailsPage(this.driver);
+            detailsPage.EditButton.Click();
+
+            var loginPage = new LoginPage(this.driver);
+            loginPage.AssertLoginPageLoaded();
+        }
+
+        [Test]
+        [Property("Priority", 1), Property("TestCase", 7)]
+        [Author("IP")]
+        public void GuestUserCantDeletePost()
+        {
+            var homePage = new HomePage(this.driver);
+            homePage.NavigateTo();
+            homePage.LogoffIfLoggedAtStartup(this.driver);
+            homePage.FirstPost.Click();
+
+            var detailsPage = new DetailsPage(this.driver);
+            detailsPage.DeleteButton.Click();
+
+            var loginPage = new LoginPage(this.driver);
+            loginPage.AssertLoginPageLoaded();
         }
 
     }
