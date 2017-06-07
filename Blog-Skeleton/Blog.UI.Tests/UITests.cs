@@ -393,10 +393,11 @@ namespace Blog.UI.Tests
             homePage.Click(homePage.blogPostsTitleOther);
             var articleDetailsPage = new ArticleDetailsPage(this.driver);
             articleDetailsPage.Click(articleDetailsPage.editBtn);
-            var error = driver.FindElement(By.XPath("//*[@id='content']/div[1]/h3")).Displayed;
+            var error = driver.SwitchTo().Alert().Text;
 
             //Assert
-            Assert.AreEqual(true, error);
+            Assert.IsTrue(error.Contains("User can edit only his own posts."));
+            homePage.logoutLink.Click();
         }
 
         [Test, Property("Priority", 2), Property("TestCase", 11)]
