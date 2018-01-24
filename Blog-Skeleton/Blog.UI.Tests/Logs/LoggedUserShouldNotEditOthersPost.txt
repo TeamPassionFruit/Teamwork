@@ -1,0 +1,4 @@
+Blog.UI.Tests.UITests.LoggedUserShouldNotEditOthersPost
+OpenQA.Selenium.NoAlertPresentException : no alert open
+  (Session info: chrome=59.0.3071.86)
+  (Driver info: chromedriver=2.29.461591 (62ebf098771772160f391d75e589dc567915b233),platform=Windows NT 10.0.14393 x86_64)
